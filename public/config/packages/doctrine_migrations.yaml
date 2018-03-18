@@ -3,3 +3,6 @@ doctrine_migrations:
     # namespace is arbitrary but should be different from App\Migrations
     # as migrations classes should NOT be autoloaded
     namespace: DoctrineMigrations
+    table_name: migration_versions
+    name: Application Migrations
+    organize_migrations: BY_YEAR_AND_MONTH # Version >= 1.2, possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false
