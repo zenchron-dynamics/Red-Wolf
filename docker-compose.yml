@@ -1,0 +1,46 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
+services:
+
+    memcached:
+      image: memcached:alpine
+      container_name: red-wolf-memcached
+
+    mariadb:
+      image: mariadb:10.1
+      container_name: red-wolf-mariadb
+      working_dir: /application
+      volumes:
+        - .:/application
+      environment:
+        - MYSQL_ROOT_PASSWORD=redwolf
+        - MYSQL_DATABASE=red-wolf
+        - MYSQL_USER=bogdaniel
+        - MYSQL_PASSWORD=redwolf
+      ports:
+        - "1028:3306"
+
+    elasticsearch:
+      image: elasticsearch:5.4-alpine
+      container_name: red-wolf-elasticsearch
+
+    webserver:
+      image: nginx:alpine
+      container_name: red-wolf-webserver
+      working_dir: /application
+      volumes:
+          - .:/application
+          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+       - "1025:80"
+
+    php-fpm:
+      build: phpdocker/php-fpm
+      container_name: red-wolf-php-fpm
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+
