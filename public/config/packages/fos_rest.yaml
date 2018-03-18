@@ -1,5 +1,45 @@
 # Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
-fos_rest: ~
+fos_rest:
+    view:
+#        default_engine: php
+        view_response_listener: force
+        force_redirects:
+          html: true
+#          xml: true
+        formats:
+            jsonp: true
+            json: true
+            xml: true
+            rss: false
+        templating_formats:
+            html: true
+        mime_types:
+            json: ['application/json', 'application/x-json', 'application/vnd.example-com.foo+json']
+            rss: 'application/rss+xml'
+            jpg: 'image/jpeg'
+            png: 'image/png'
+        jsonp_handler: ~
+    body_listener: true
+    param_fetcher_listener: force
+    allowed_methods_listener: true
+    access_denied_listener:
+        json: true
+#    format_listener:
+#        rules:
+    routing_loader:
+        default_format: ~
+#    exception:
+#        exception_controller: 'fos_rest.exception.controller:showAction'
+#        codes:
+#            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+#            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
+#        messages:
+#            'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
+#    service:
+#        view_handler:
+    serializer:
+#        version: 1.0
+#        groups: [data]
 #    param_fetcher_listener:  true
 #    allowed_methods_listener:  true
 #    routing_loader: true
